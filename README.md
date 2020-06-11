@@ -2,6 +2,8 @@
 
 [![Run on Repl.it](https://repl.it/badge/github/aaron-contreras/mastermind)](https://repl.it/github/aaron-contreras/mastermind)
 
+**NOTE**: _Yellow_ and _magenta_ colored pegs appear a different color on replit's terminal.
+
 If you’ve never played Mastermind, a game where you have to guess your opponent’s secret code within a certain number of turns (like hangman with colored pegs), check it out on [Wikipedia](https://en.wikipedia.org/wiki/Mastermind_(board_game)). Each turn you get some feedback about how good your guess was – whether it was exactly correct or just the correct color but in the wrong space.
 
 - This game implements **Donald Knuth**'s 5-guess-win algorithm, played by "Ultron", guaranteed to win in 5 guesses or less. Try it out!
