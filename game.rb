@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative './game_constants.rb'
 require_relative './displayable.rb'
 require_relative './colorable.rb'
 require_relative './peg.rb'
@@ -7,45 +8,62 @@ require_relative './code_breaker.rb'
 require_relative './code_maker.rb'
 # Mastermind Game
 class Game
+  include GameConstants
   include Displayable
   include Colorable
-  
-  attr_accessor :turns
-  attr_reader :code_maker, :code_breaker
+
+  attr_accessor :turn
+  attr_reader :game_mode, :code_maker, :code_breaker, :computers_name
 
   def initialize
-    intro
-    generating_pattern
-    # @code_maker = CodeMaker.new available_code_pegs
-    @code_maker = CodeMaker.new code_peg_colors
-    p code_maker.pattern
-    finished_pattern_generation
-    @code_breaker = CodeBreaker.new
-    @turns = 12
-  end
-
-  def intro
     title
     instructions
     peg_options
+    @game_mode = game_mode_setting
+    create_players
+    @turn = 0
   end
 
   def build_peg_set(type)
-    set_of_pegs = type.collect {|color| Peg.new color}
-  end
-
-  def available_code_pegs
-    build_peg_set code_peg_colors
-  end
-
-  def available_key_pegs
-    build_peg_set key_peg_colors
+    type.collect { |color| Peg.new color }
   end
 
   def peg_options
     code_peg_detail
-    show_peg_set available_code_pegs
+    show_peg_set build_peg_set(code_peg_colors)
     key_peg_detail
+  end
+
+  def game_mode_setting
+    ask_for_game_mode
+    mode = gets.chomp.to_i until GAME_MODES.key? mode
+    puts
+    mode
+  end
+
+  def create_human_code_maker
+    ask_for_secret_pattern
+    @code_maker = CodeMaker.new GAME_MODES[game_mode], obtain_pattern
+    print 'This is your selected pattern =>'.ljust(35)
+    show_pattern code_maker.pattern
+    puts
+  end
+
+  def create_computer_code_maker
+    generating_pattern
+    sleep 1
+    @code_maker = CodeMaker.new GAME_MODES[game_mode], code_peg_numbers
+    finished_pattern_generation_message
+  end
+
+  def create_players
+    if game_mode == 1
+      create_human_code_maker
+    else
+      create_computer_code_maker
+    end
+
+    @code_breaker = CodeBreaker.new
   end
 
   def cracked?
@@ -53,31 +71,52 @@ class Game
   end
 
   def no_more_turns?
-    turns.zero?
+    turn == 12
   end
 
-  def guess
-    guess_attempt = nil
-    until CodeBreaker.valid_guess? guess_attempt, code_peg_colors
-      guess_attempt = gets.chomp
-    end
-    guess_attempt.split('').map(&:to_sym)
+  def convert_to_numbers(guess)
+    guess.split('').map(&:to_sym).map { |color| COLOR_TO_NUMBER[color] }
+  end
+
+  def obtain_pattern
+    pattern = gets.chomp until Peg.valid_pattern? pattern, code_peg_colors
+
+    convert_to_numbers pattern
   end
 
   def game_over_message
-    return game_over_cracked if cracked?
+    return game_over_cracked(game_mode) if cracked?
     return game_over_lost if no_more_turns?
   end
 
+  def human_code_breaker
+    ask_for_guess_message
+    code_breaker.guess = obtain_pattern
+    print 'You guessed =>'.ljust(35)
+  end
+
+  def computer_code_breaker
+    puts "#{COMPUTERS_NAME} is thinking..."
+    sleep 1
+    code_breaker.guess = code_breaker.solve code_maker.feedback, turn
+    print "#{COMPUTERS_NAME} guessed =>".ljust(35)
+  end
+
+  def generate_guess
+    computer_code_breaker if game_mode == 1
+    human_code_breaker if game_mode == 2
+  end
+
+  def run_game_loop
+    self.turn += 1
+    show_turn turn
+    generate_guess
+    show_pattern code_breaker.guess
+    code_maker.determine_feedback game_mode, code_breaker.guess, code_maker.pattern
+  end
+
   def play
-    until cracked? || no_more_turns?
-      ask_for_guess_message
-      code_breaker.guess = guess
-      code_maker.provide_feedback code_breaker.guess
-      self.turns -= 1
-    end
+    run_game_loop until cracked? || no_more_turns?
     game_over_message
   end
 end
-
-Game.new.play

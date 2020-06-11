@@ -24,9 +24,46 @@ module Colorable
     w: 47
   }.freeze
 
-  SAMPLE_COLORS = [:r, :g, :y, :b].freeze
+  COLOR_TO_NUMBER = {
+    r: 1,
+    g: 2,
+    y: 3,
+    b: 4,
+    m: 5,
+    c: 6
+  }.freeze
 
-  KEY_COLORS = Proc.new { |color, value| color == :bl || color == :w }
+  NUMBER_TO_COLOR = {
+    1 => :r,
+    2 => :g,
+    3 => :y,
+    4 => :b,
+    5 => :m,
+    6 => :c
+  }.freeze
+
+  SYMBOLS_TO_NAME = {
+    r: 'Red',
+    g: 'Green',
+    y: 'Yellow',
+    b: 'Blue',
+    m: 'Magenta',
+    c: 'Cyan'
+  }.freeze
+
+  SAMPLE_COLORS = %i[r g y b].freeze
+
+  KEY_COLORS = proc { |color, _value| %i[bl w].freeze.include? color }
+
+  BOLD = 1
+
+  def colors(pattern)
+    pattern.map(&:color)
+  end
+
+  def code_peg_numbers
+    COLOR_TO_NUMBER.map { |_key, value| value }
+  end
 
   def code_peg_colors
     FOREGROUND_COLORS.each_key.reject(&KEY_COLORS)
