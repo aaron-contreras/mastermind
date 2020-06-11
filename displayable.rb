@@ -87,12 +87,12 @@ module Displayable
   end
 
   def ask_for_secret_pattern
-    print 'Enter your secret pattern. '
+    print 'Enter your 4-color secret pattern. '
     example
   end
 
   def ask_for_guess_message
-    print 'Take a guess. '
+    print 'Take a 4-color guess. '
     example
   end
 

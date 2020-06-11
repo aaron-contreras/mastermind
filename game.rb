@@ -86,7 +86,10 @@ class Game
 
   def game_over_message
     return game_over_cracked(game_mode) if cracked?
-    return game_over_lost if no_more_turns?
+
+    game_over_lost if no_more_turns?
+    print "Here's what #{COMPUTERS_NAME} secret code was => "
+    show_pattern code_maker.pattern
   end
 
   def human_code_breaker

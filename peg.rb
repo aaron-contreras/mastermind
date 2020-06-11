@@ -15,7 +15,7 @@ class Peg
     return false if pattern_attempt.nil?
 
     pegs = pattern_attempt.split('').map(&:to_sym)
-    pegs.all? { |color| peg_set.include? color }
+    pegs.length == 4 && pegs.all? { |color| peg_set.include? color }
   end
 
   def to_s
