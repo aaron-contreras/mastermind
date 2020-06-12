@@ -22,8 +22,8 @@ Here I detail my initial problem solving ideas to approach this project.
       You'll be provided feedback on how good your guess is after each turn.
 
       Key pegs
-      ***white*** Indicates correct color in correct position
-      ***black*** Indicates correct color in wrong position.
+      ***black*** Indicates correct color in correct position
+      ***white*** Indicates correct color in wrong position.
       
       Code pegs
       These are your options
