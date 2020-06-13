@@ -1,6 +1,6 @@
 # Mastermind
 
-[![Run on Repl.it](https://repl.it/badge/github/aaron-contreras/mastermind)](https://repl.it/github/aaron-contreras/mastermind)
+[![Run on Repl.it](https://repl.it/badge/github/aaron-contreras/mastermind)](http://mastermind.aaroncontreras.repl.run/)
 
 **NOTE**: _Yellow_ and _magenta_ colored pegs appear a different color on replit's terminal.
 
