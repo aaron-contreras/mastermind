@@ -22,7 +22,7 @@ Here I detail my initial problem solving ideas to approach this project.
       You'll be provided feedback on how good your guess is after each turn.
 
       Key pegs
-      ***black*** Indicates correct color in correct position
+      ***red*** Indicates correct color in correct position
       ***white*** Indicates correct color in wrong position.
       
       Code pegs
@@ -69,7 +69,7 @@ Here I detail my initial problem solving ideas to approach this project.
     - [x] Until the player's guess is correct or 12 turns are up
       - Ask the player for his 4-letter guess until each of his peg guesses matches a valid code peg.
       * If there is a colored peg in the right position in the player's guess
-        Add a black key peg to the feedback
+        Add a red key peg to the feedback
       * If there is a correct colored peg in the wrong position
         Add a white key peg to the feedback
       - Give the player feedback on his guess
