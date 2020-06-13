@@ -19,6 +19,10 @@ class Peg
   end
 
   def to_s
-    colorize(BACKGROUND_COLORS[color], '  ')
+    if code_peg_colors.include? color
+      colorize(BACKGROUND_COLORS[color], CODE_PEG_CHARACTER)
+    else
+      colorize(FOREGROUND_COLORS[color == :bl ? :r : color], KEY_PEG_CHARACTER)
+    end
   end
 end

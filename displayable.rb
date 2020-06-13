@@ -30,8 +30,8 @@ module Displayable
 
   def key_peg_detail
     puts stylize(BOLD, 'Key pegs')
-    puts "#{colorize BACKGROUND_COLORS[:bl], SQUARE} Black => correct color in correct position."
-    puts "#{colorize BACKGROUND_COLORS[:w], SQUARE} White => correct color in wrong position."
+    puts "#{colorize FOREGROUND_COLORS[:r], KEY_PEG_CHARACTER} Red => correct color in correct position."
+    puts "#{colorize FOREGROUND_COLORS[:w], KEY_PEG_CHARACTER} White => correct color in wrong position."
     puts
   end
 
@@ -75,9 +75,8 @@ module Displayable
     pattern = pattern.map { |number| Peg.new NUMBER_TO_COLOR[number] }
     pattern.each do |peg|
       print peg
-      print ' ' unless peg == pattern.last
+      print ' '
     end
-    puts
   end
 
   def example
@@ -96,17 +95,21 @@ module Displayable
     example
   end
 
-  def show_feedback_message(game_mode, feedback)
-    if game_mode == 1
-      print "Here's how #{COMPUTERS_NAME} did =>".ljust(35)
-    else
-      print "Here's how you did =>".ljust(35)
-    end
-
+  def print_key_pegs(feedback)
     feedback.each do |peg|
       print peg
       print ' ' unless peg == feedback.last
     end
+  end
+
+  def show_feedback_message(game_mode, feedback)
+    if game_mode == 1
+      print '  |||  Feedback he got => '
+    else
+      print '  |||  Feedback you got => '
+    end
+
+    print_key_pegs feedback
     2.times { puts }
   end
 

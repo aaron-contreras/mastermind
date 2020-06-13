@@ -46,7 +46,7 @@ class Game
     @code_maker = CodeMaker.new GAME_MODES[game_mode], obtain_pattern
     print 'This is your selected pattern =>'.ljust(35)
     show_pattern code_maker.pattern
-    puts
+    2.times { puts }
   end
 
   def create_computer_code_maker
@@ -80,7 +80,7 @@ class Game
 
   def obtain_pattern
     pattern = gets.chomp until Peg.valid_pattern? pattern, code_peg_colors
-
+    puts
     convert_to_numbers pattern
   end
 
@@ -95,14 +95,14 @@ class Game
   def human_code_breaker
     ask_for_guess_message
     code_breaker.guess = obtain_pattern
-    print 'You guessed =>'.ljust(35)
+    print 'You guessed =>  '
   end
 
   def computer_code_breaker
     puts "#{COMPUTERS_NAME} is thinking..."
     sleep 1
     code_breaker.guess = code_breaker.solve code_maker.feedback, turn
-    print "#{COMPUTERS_NAME} guessed =>".ljust(35)
+    print "#{COMPUTERS_NAME} guessed =>  "
   end
 
   def generate_guess

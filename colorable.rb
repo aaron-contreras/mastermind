@@ -51,6 +51,9 @@ module Colorable
     c: 'Cyan'
   }.freeze
 
+  KEY_PEG_CHARACTER = "\u29bb"
+  CODE_PEG_CHARACTER = '  '
+
   SAMPLE_COLORS = %i[r g y b].freeze
 
   KEY_COLORS = proc { |color, _value| %i[bl w].freeze.include? color }
