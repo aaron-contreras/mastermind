@@ -23,11 +23,11 @@ class Consultant < CodeMaker
 
   def all_possible_peg_feedback
     POSSIBLE_PEG_SCORES.map do |score|
-      black_pegs = score[0]
+      colored_pegs = score[0]
       white_pegs = score[1]
       peg_container = []
-      black_pegs.times { peg_container.push Peg.new(:bl) }
-      white_pegs.times { peg_container.push Peg.new(:w) }
+      colored_pegs.times { peg_container.push Key.new(:r) }
+      white_pegs.times { peg_container.push Key.new(:w) }
       peg_container
     end
   end

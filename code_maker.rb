@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './peg.rb'
+require_relative './key.rb'
 require_relative './colorable.rb'
 # Player who has the secret code
 class CodeMaker
@@ -54,10 +55,10 @@ class CodeMaker
     feedback = []
     pattern_checker = provided_pattern.map { |peg| peg }
     hits = find_total_number_of_hits guess, pattern_checker
-    number_of_black_pegs = find_number_of_black_pegs(guess, pattern_checker)
-    number_of_black_pegs.times { feedback << Peg.new(:bl) }
-    number_of_white_pegs = hits - number_of_black_pegs
-    number_of_white_pegs.times { feedback << Peg.new(:w) }
+    number_of_colored_pegs = find_number_of_black_pegs(guess, pattern_checker)
+    number_of_colored_pegs.times { feedback << Key.new(:r) }
+    number_of_white_pegs = hits - number_of_colored_pegs
+    number_of_white_pegs.times { feedback << Key.new(:w) }
     feedback
   end
 

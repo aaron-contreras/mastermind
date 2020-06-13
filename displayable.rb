@@ -72,7 +72,7 @@ module Displayable
   end
 
   def show_pattern(pattern)
-    pattern = pattern.map { |number| Peg.new NUMBER_TO_COLOR[number] }
+    pattern = pattern.map { |number| Code.new NUMBER_TO_COLOR[number] }
     pattern.each do |peg|
       print peg
       print ' '

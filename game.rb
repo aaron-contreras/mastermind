@@ -4,6 +4,7 @@ require_relative './game_constants.rb'
 require_relative './displayable.rb'
 require_relative './colorable.rb'
 require_relative './peg.rb'
+require_relative './code.rb'
 require_relative './code_breaker.rb'
 require_relative './code_maker.rb'
 # Mastermind Game
@@ -25,7 +26,7 @@ class Game
   end
 
   def build_peg_set(type)
-    type.collect { |color| Peg.new color }
+    type.collect { |color| Code.new color }
   end
 
   def peg_options
